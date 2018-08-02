@@ -92,7 +92,8 @@ def sim(filename1, filename2):
     
 if __name__ == "__main__":
     
-    baseloc = "C:/Users/Gauranga/Pictures/fisv/"
+    #baseloc = "C:/Users/Gauranga/Pictures/fisv/"
+    baseloc = "./fisv/"
     baseimg = baseloc + "baseimg.png"
     happy = baseloc + "happy.png"
     fail = baseloc + "deffail.png"
@@ -109,6 +110,9 @@ if __name__ == "__main__":
     pixel2 = baseloc + "Pixel 2.png"
     galaxys5 = baseloc + "Galaxy S5.png"
     
+    #adding some some sample data
+    simg1 = ["macelc_chrome_38.0.png","macelc_chrome_40.0.png","macelc_chrome_41.0.png","macelc_chrome_44.0.png","macelc_chrome_45.0.png","macelc_chrome_49.0.png","macelc_chrome_50.0.png"]
+    
     fdt = []
     mset = []
     simt = []
@@ -119,7 +123,7 @@ if __name__ == "__main__":
 
     for qimg in imgname:     
         fd = featureDetection(baseimg, qimg,0.05)
-        testname = qimg[32:-4]
+        testname = qimg[7:-4]
         fnamei = qimg
         msei = mse(baseimg, qimg)
         histi = histogram(baseimg, qimg)
@@ -136,14 +140,35 @@ if __name__ == "__main__":
         simt.append(simi)
         namet.append(testname)
         mset.append(msei)
-  
+        
+    for qimg in simg1: 
+        testname = qimg[:-4]
+        qimg = baseloc + "archive_1ea20f065389efec400591260a6ad92fd985e147/" + qimg
+        baseimg = baseloc + "archive_1ea20f065389efec400591260a6ad92fd985e147/" + simg1[0]
+        fd = featureDetection(baseimg, qimg,0.001)
+        fnamei = qimg
+        msei = mse(baseimg, qimg)
+        histi = histogram(baseimg, qimg)
+        simi = sim(baseimg, qimg)
+        print("\n\n=============Test case "+ testname+"================\n")
+        print("\n", qimg)
+        print("\n Feature detection : ", fd)
+        print("\n Square error :", msei)
+        print("\n SSIM :", simi)
+        print("\n Histogram :", histi)
+        fdt.append(fd)
+        filename.append(fnamei)
+        hist.append(histi)
+        simt.append(simi)
+        namet.append(testname)
+        mset.append(msei)
     width = 500
     height = 900
     print("\n\n\n=============Test case Phones================\n")
     phones = [IphoneX, iPhone6P,iPhone6,iPhone5,Pixel2XL,pixel2,galaxys5]
     for qimg in phones:
         fd = featureDetection(iPhone6, qimg,0.001)
-        testname = qimg[32:-4]
+        testname = qimg[7:-4]
         fnamei = qimg
         msei = mse(iPhone6, qimg)
         histi = histogram(iPhone6, qimg)
@@ -165,7 +190,7 @@ if __name__ == "__main__":
     baseimg = iPad
     qimg = iPadPro
     fd = featureDetection(baseimg, qimg,0.001)
-    testname = qimg[32:-4]
+    testname = qimg[7:-4]
     fnamei = qimg
     msei = mse(baseimg, qimg)
     histi = histogram(baseimg, qimg)
