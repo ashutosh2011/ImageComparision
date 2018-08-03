@@ -49,10 +49,9 @@ def featureDetection (filename1, filename2,a):
             good.append([m])            
             score.append(math.exp((-a)*m.distance))
     # cv2.drawMatchesKnn expects list of lists as matches.
-#    img3 = cv2.drawMatchesKnn(img1,kp1,img2,kp2,good,None,flags=2)
+    img3 = cv2.drawMatchesKnn(img1,kp1,img2,kp2,good[:50:2],None,flags=2)
 #    
-#    plt.imshow(img3),plt.show()
-    
+    plt.imshow(img3),plt.show()
 #    print("Percentage match = ", len(good)/min(len(des1), len(des2)) * 100 )
 #    return len(good)/min(len(des1), len(des2)) * 100, sum(score)/len(score) *100
     return sum(score)/len(score) *100
@@ -92,8 +91,8 @@ def sim(filename1, filename2):
     
 if __name__ == "__main__":
     
-    #baseloc = "C:/Users/Gauranga/Pictures/fisv/"
-    baseloc = "./fisv/"
+    baseloc = "C:/Users/Gauranga/Pictures/fisv/"
+    #baseloc = "./fisv/"
     baseimg = baseloc + "baseimg.png"
     happy = baseloc + "happy.png"
     fail = baseloc + "deffail.png"
@@ -213,4 +212,4 @@ df = pd.DataFrame({'Name': namet,
                        'Histogram': hist,
                        'SSIM': simt,
                        'Square Error': mset})
-df.to_csv("result.csv", sep='\t')    
+df.to_csv("result2.csv", sep='\t')    
